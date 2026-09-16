@@ -1,4 +1,4 @@
-# XIAO ESP32-C6 board
+# XIAO ESP32-C6 / ESP32-C5 board
 
 > [!WARNING]
 > **The XIAO ESP32-C6 board added in this fork has not been built or tested yet, and it is provided without support.** Use it at your own risk.
@@ -9,7 +9,7 @@ AI disclosure: Board layout is my own. AI was used for verification, documentati
 
 [`kicad_files/XIAO ESP32C6`](kicad_files/XIAO%20ESP32C6) is a small Security+ 2.0 interface for the ESPHome `secplus_gdo` component, built around a surface-mounted Seeed XIAO ESP32-C6. Compared with the [D1 Mini - ESP32](kicad_files/D1%20Mini%20-%20ESP32) board it is based on:
 
-- **MCU:** a XIAO ESP32-C6 replaces the D1 Mini ESP32. TX is on GPIO21 (D3) and RX on GPIO18 (D10). As before, the module is powered from its own USB port.
+- **MCU:** a XIAO ESP32-C6 replaces the D1 Mini ESP32. TX is on GPIO22 (D4) and RX on GPIO18 (D10). As before, the module is powered from its own USB port. The same footprint and pinout also accept a Seeed XIAO ESP32-C5 (see the [board README](kicad_files/XIAO%20ESP32C6/README.md#xiao-esp32-c5-compatibility) for the C5 substitutions).
 - **RX:** a 10k pull-up to 3V3 is added, because the firmware does not enable an internal one.
 - **Values:** the TX GPIO pulldown is 4.7k (was 10k), and the RED-to-ground bias is 100k (was 10k).
 - **Protection:** a 15 V unidirectional TVS is added on the RED line.
@@ -18,22 +18,14 @@ AI disclosure: Board layout is my own. AI was used for verification, documentati
 
 The folder includes a [BOM](kicad_files/XIAO%20ESP32C6/BOM.md) with Digi-Key part numbers, a [schematic PDF](kicad_files/XIAO%20ESP32C6/c6gdo-schematic.pdf), and a [README](kicad_files/XIAO%20ESP32C6/README.md) with the full list of changes and the reasoning behind them. The project needs KiCad 10 and contains its own symbol, footprint and 3D-model libraries.
 
+## XIAO ESP32-C5 compatibility
+This board was designed for the XIAO ESP32-C6. The pinouts are also chosen for XIAO ESP32-C5 compatibility. I'm unsure of precedent for the GDO firmware- it may or may not function on C5.
+
 ## Firmware
 Intended for use with SecPlus GDO firmware using the ESP-IDF framework.
 
 An example ESPHome YAML would be an adaptation of `grgdov3-board-secplus-gdo-thread.yaml`, found [here](https://github.com/GelidusResearch/grgdo). Note that you will at a minimum need to remap the UART pins and change the board/variant to match.
-```yaml
-substitutions:
-  uart_tx_pin: GPIO21 # D3
-  uart_rx_pin: GPIO18 # D10
 
-esp32:
-  board: seeed_xiao_esp32c6
-  flash_size: 4MB
-  variant: esp32c6
-  framework:
-    type: esp-idf
-```
 
 ---
 

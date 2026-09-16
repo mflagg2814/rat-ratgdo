@@ -1,4 +1,4 @@
-# Seeed XIAO ESP32-C6 KiCad files
+# Seeed XIAO ESP32-C6 / ESP32-C5 KiCad files
 
 > [!WARNING]
 > **This board has not been built or tested yet, and it is provided without support.** It passes KiCad's electrical rules check and design rules check, but it has never controlled a garage door. Use it at your own risk.
@@ -21,13 +21,32 @@ An example ESPHome YAML would be an adaptation of `grgdov3-board-secplus-gdo-thr
 
 ```yaml
 substitutions:
-  uart_tx_pin: GPIO21 # D3
+  uart_tx_pin: GPIO22 # D4
   uart_rx_pin: GPIO18 # D10
 
 esp32:
   board: seeed_xiao_esp32c6
   flash_size: 4MB
   variant: esp32c6
+  framework:
+    type: esp-idf
+```
+
+## XIAO ESP32-C5 compatibility
+
+This board was designed for the XIAO ESP32-C6. The pinouts are also chosen for XIAO ESP32-C5 compatibility. I'm unsure of precedent for the GDO firmware- it may or may not function on C5.
+
+If you populate a C5 instead of a C6, use this in place of the substitutions/esp32 block above:
+
+```yaml
+substitutions:
+  uart_tx_pin: GPIO23 # D4
+  uart_rx_pin: GPIO10 # D10
+
+esp32:
+  board: seeed_xiao_esp32c5
+  flash_size: 8MB
+  variant: esp32c5
   framework:
     type: esp-idf
 ```
@@ -45,7 +64,7 @@ The changes are:
 
 | | D1 Mini - ESP32 | This board | Notes |
 |-|-|-|-|
-| MCU | Wemos D1 Mini ESP32: TX IO22 (D1), RX IO21 (D2) | Seeed XIAO ESP32-C6: TX GPIO21 (D3), RX GPIO18 (D10) | Smaller module with WiFi 6 / Thread. Neither pin is a C6 strapping pin, and neither conflicts with the console UART, USB-JTAG or the antenna switch. |
+| MCU | Wemos D1 Mini ESP32: TX IO22 (D1), RX IO21 (D2) | Seeed XIAO ESP32-C6: TX GPIO22 (D4), RX GPIO18 (D10) | Smaller module with WiFi 6 / Thread. Neither pin is a C6 strapping pin, and neither conflicts with the console UART, USB-JTAG or the antenna switch. D4/D10 were chosen (instead of D3/D10) so the same board also works with a XIAO ESP32-C5 — see [XIAO ESP32-C5 compatibility](#xiao-esp32-c5-compatibility). |
 | RX pull-up | None | **R5** 10k to 3V3 (new) | gdolib never enables an internal pull-up on the RX pin, so without R5 the pin floats when Q1 is off. |
 | TX GPIO pulldown | 10k | **R1** 4.7k | Keeps Q2 off while the ESP32 is in reset. In reset the pin's ~45 kΩ internal pull-up is enabled, which with the old 10k pulldown would set Q2's gate to about 3.3 V × 10k / 55k ≈ 0.60 V. That is just under the AO3400A's minimum turn-on threshold of 0.65 V (0.65–1.45 V). With 4.7k the gate sits at about 0.31 V. |
 | RED bias to ground | 10k | **R4** 100k | Lighter load on the opener's line: about 0.13 mA instead of 1.3 mA at 12.7 V. |
