@@ -1,11 +1,10 @@
 # Seeed XIAO ESP32-C6 KiCad files
 
 > [!WARNING]
-> **This board has not been built or tested yet, and it is provided without support.** It passes KiCad's electrical rules check and design rules check), but it has never controlled a garage door. Use it at your own risk.
+> **This board has not been built or tested yet, and it is provided without support.** It passes KiCad's electrical rules check and design rules check, but it has never controlled a garage door. Use it at your own risk.
 
-![3D render, top](images/render-top.png)
-![Top view without the XIAO and terminal block](images/render-top-bare.png)
-![3D render, bottom](images/render-bottom.png)
+<img src="images/render-top.png" width="50%" alt="3D render, top" /><img src="images/render-top-bare.png" width="50%" alt="Top view without the XIAO and terminal block" />
+<img src="images/render-bottom.png" width="50%" alt="3D render, bottom" />
 
 A small (28.4 × 21.05 mm, 2-layer) Security+ 2.0 interface based on this repository's D1 Mini - ESP32 board, built around a surface-mounted [Seeed Studio XIAO ESP32-C6](https://wiki.seeedstudio.com/xiao_esp32c6_getting_started/). It connects to only the RED and WHITE wall-control wires, and the XIAO is powered from its own USB-C port.
 
@@ -14,17 +13,24 @@ A small (28.4 × 21.05 mm, 2-layer) Security+ 2.0 interface based on this reposi
 
 ## Firmware
 
-The board was designed for the ESPHome [`secplus_gdo`](https://github.com/gelidusresearch/esphome-secplus-gdo) component. That component inverts the UART, which matches the two inverting MOSFET stages on this board:
-
-```yaml
-secplus_gdo:
-  input_gdo_pin: GPIO18   # D10, RX
-  output_gdo_pin: GPIO21  # D3, TX
-```
+The board was designed for the ESPHome [`secplus_gdo`](https://github.com/gelidusresearch/esphome-secplus-gdo) component. That component inverts the UART, which matches the two inverting MOSFET stages on this board.
 
 Obstruction status comes from the Security+ 2.0 serial protocol, so no obstruction pin is configured.
 
-An example ESPHome YAML would be an adaptation of `grgdov3-board-secplus-gdo-thread.yaml`, found [here](https://github.com/GelidusResearch/grgdo). Note that you will at a minimum need to remap the UART pins to match this board.
+An example ESPHome YAML would be an adaptation of `grgdov3-board-secplus-gdo-thread.yaml`, found [here](https://github.com/GelidusResearch/grgdo). Note that you will at a minimum need to remap the UART pins and change the board/variant to match.
+
+```yaml
+substitutions:
+  uart_tx_pin: GPIO21 # D3
+  uart_rx_pin: GPIO18 # D10
+
+esp32:
+  board: seeed_xiao_esp32c6
+  flash_size: 4MB
+  variant: esp32c6
+  framework:
+    type: esp-idf
+```
 
 ## Changes from the D1 Mini - ESP32 board
 
@@ -58,14 +64,13 @@ The changes are:
 ## PCB notes
 
 - The XIAO sits on the top side, flush with the bottom board edge. All other parts are on the back.
-- The XIAO's underside pads (24–33) are **not soldered**. The footprint has no copper for them; instead it marks each one with an F.Fab outline and a "no vias" rule area, so ground fill runs underneath and DRC flags any via placed there. These pads are also left off the schematic symbol.
+- The XIAO's underside pads (24–33) are **not soldered**. The footprint has no copper for them; instead it marks each one with an F.Fab outline and a rule area, so DRC flags any via placed there. The top-layer ground fill also stays out of these areas, so a flaw in the solder mask can't short a signal or power pad to ground. These pads are also left off the schematic symbol.
 - Both copper layers are ground-filled, and both fills stop at y = 55 mm, leaving the board under the XIAO's antenna end free of copper.
 - Stitching vias tie the two ground fills together. Most sit on a regular 3.2 mm grid, including a row along the fill edge nearest the antenna, with a few extra vias between the parts in the center. The spacing comes from the WiFi wavelength:
   - A 2.4 GHz signal has a wavelength (λ) of about 125 mm in air, or roughly 60–70 mm in FR4.
   - A common rule of thumb keeps stitching vias no more than λ/20–λ/10 apart, about 3–6 mm. That way no patch of copper is large enough to act as a resonator or slot antenna at WiFi frequencies.
   - On this board, no point where both layers are filled is more than about 3.2 mm from a stitching via.
 - Under the XIAO's two rows of edge pads, only the bottom layer is ground-filled, since the top layer holds the pads. These bottom-only strips are about 4 mm wide. Each one is joined to the rest of the bottom fill along its full length, and a column of vias runs along its inner edge. So each strip is part of the ground plane rather than a separate flap, and it is far too small to resonate at 2.4 GHz (a quarter wavelength is about 15–17 mm in FR4).
-- Known DRC warnings: cosmetic silkscreen only (text clipped at the board edge, thin text).
 
 ## Project layout
 

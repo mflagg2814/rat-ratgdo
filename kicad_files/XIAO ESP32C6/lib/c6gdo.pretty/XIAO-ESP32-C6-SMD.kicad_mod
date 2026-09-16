@@ -29,141 +29,66 @@
 	(attr smd)
 	(duplicate_pad_numbers_are_jumpers no)
 	(fp_line
-		(start 0 -1.987)
-		(end 0 -19.132)
+		(start 1.905 -0.2)
+		(end 15.875 -0.2)
 		(stroke
-			(width 0.1)
+			(width 0.15)
 			(type solid)
 		)
 		(layer "F.SilkS")
 	)
 	(fp_line
-		(start 1.905 -0.082)
-		(end 15.875 -0.082)
+		(start 15.875 -20.8)
+		(end 1.905 -20.8)
 		(stroke
-			(width 0.1)
-			(type solid)
-		)
-		(layer "F.SilkS")
-	)
-	(fp_line
-		(start 4.395 -21.037)
-		(end 4.398728 -22.047272)
-		(stroke
-			(width 0.127)
-			(type solid)
-		)
-		(layer "F.SilkS")
-	)
-	(fp_line
-		(start 4.898728 -22.547)
-		(end 12.894 -22.547)
-		(stroke
-			(width 0.127)
-			(type solid)
-		)
-		(layer "F.SilkS")
-	)
-	(fp_line
-		(start 13.394 -22.047)
-		(end 13.394 -21.037)
-		(stroke
-			(width 0.127)
-			(type solid)
-		)
-		(layer "F.SilkS")
-	)
-	(fp_line
-		(start 15.875 -21.037)
-		(end 1.905 -21.037)
-		(stroke
-			(width 0.1)
-			(type solid)
-		)
-		(layer "F.SilkS")
-	)
-	(fp_line
-		(start 17.78 -1.987)
-		(end 17.78 -19.132)
-		(stroke
-			(width 0.1)
+			(width 0.15)
 			(type solid)
 		)
 		(layer "F.SilkS")
 	)
 	(fp_arc
-		(start 0 -19.136)
-		(mid 0.557962 -20.483038)
-		(end 1.905 -21.041)
+		(start 0.2491 -19.3)
+		(mid 0.788 -20.3694)
+		(end 1.905 -20.8)
 		(stroke
-			(width 0.1)
+			(width 0.15)
 			(type solid)
 		)
 		(layer "F.SilkS")
 	)
 	(fp_arc
-		(start 1.905 -0.082)
-		(mid 0.557962 -0.639962)
-		(end 0 -1.987)
+		(start 1.905 -0.2)
+		(mid 0.7481 -0.625)
+		(end 0.1412 -1.7)
 		(stroke
-			(width 0.1)
+			(width 0.15)
 			(type solid)
 		)
 		(layer "F.SilkS")
 	)
 	(fp_arc
-		(start 4.398728 -22.047272)
-		(mid 4.545276 -22.400644)
-		(end 4.898728 -22.547)
+		(start 15.875 -20.8)
+		(mid 16.9934 -20.3695)
+		(end 17.5345 -19.3)
 		(stroke
-			(width 0.127)
-			(type default)
-		)
-		(layer "F.SilkS")
-	)
-	(fp_arc
-		(start 12.894 -22.547)
-		(mid 13.247553 -22.400553)
-		(end 13.394 -22.047)
-		(stroke
-			(width 0.127)
-			(type default)
-		)
-		(layer "F.SilkS")
-	)
-	(fp_arc
-		(start 15.875 -21.037)
-		(mid 17.222038 -20.479038)
-		(end 17.78 -19.132)
-		(stroke
-			(width 0.1)
+			(width 0.15)
 			(type solid)
 		)
 		(layer "F.SilkS")
 	)
 	(fp_arc
-		(start 17.78 -1.987)
-		(mid 17.222038 -0.639962)
-		(end 15.875 -0.082)
+		(start 17.6388 -1.7)
+		(mid 17.0319 -0.625)
+		(end 15.875 -0.2)
 		(stroke
-			(width 0.1)
+			(width 0.15)
 			(type solid)
 		)
 		(layer "F.SilkS")
 	)
 	(fp_circle
-		(center -0.21 -20.621)
-		(end -0.21 -20.875)
-		(stroke
-			(width 0.5)
-			(type solid)
-		)
-		(fill yes)
-		(layer "F.SilkS")
-	)
-	(fp_circle
-		(center 1.064 -19.904)
-		(end 1.064 -20.158)
+		(center 1.2 -19.75)
+		(end 1.2 -20.004)
 		(stroke
 			(width 0.5)
 			(type solid)
@@ -415,7 +340,7 @@
 	)
 	(zone
 		(layer "F.Cu")
-		(name "U1 underside pad 24 GPIO5_MTDI - no vias")
+		(name "U1 underside pad 24 GPIO5_MTDI - no vias or fill")
 		(hatch full 0.3)
 		(connect_pads
 			(clearance 0)
@@ -425,7 +350,7 @@
 			(tracks allowed)
 			(vias not_allowed)
 			(pads allowed)
-			(copperpour allowed)
+			(copperpour not_allowed)
 			(footprints allowed)
 		)
 		(placement
@@ -444,7 +369,7 @@
 	)
 	(zone
 		(layer "F.Cu")
-		(name "U1 underside pad 25 GPIO7_MTDO - no vias")
+		(name "U1 underside pad 25 GPIO7_MTDO - no vias or fill")
 		(hatch full 0.3)
 		(connect_pads
 			(clearance 0)
@@ -454,7 +379,7 @@
 			(tracks allowed)
 			(vias not_allowed)
 			(pads allowed)
-			(copperpour allowed)
+			(copperpour not_allowed)
 			(footprints allowed)
 		)
 		(placement
@@ -473,7 +398,7 @@
 	)
 	(zone
 		(layer "F.Cu")
-		(name "U1 underside pad 26 CHIP_EN - no vias")
+		(name "U1 underside pad 26 CHIP_EN - no vias or fill")
 		(hatch full 0.3)
 		(connect_pads
 			(clearance 0)
@@ -483,7 +408,7 @@
 			(tracks allowed)
 			(vias not_allowed)
 			(pads allowed)
-			(copperpour allowed)
+			(copperpour not_allowed)
 			(footprints allowed)
 		)
 		(placement
@@ -512,7 +437,7 @@
 			(tracks allowed)
 			(vias not_allowed)
 			(pads allowed)
-			(copperpour allowed)
+			(copperpour not_allowed)
 			(footprints allowed)
 		)
 		(placement
@@ -531,7 +456,7 @@
 	)
 	(zone
 		(layer "F.Cu")
-		(name "U1 underside pad 28 GPIO4_MTMS - no vias")
+		(name "U1 underside pad 28 GPIO4_MTMS - no vias or fill")
 		(hatch full 0.3)
 		(connect_pads
 			(clearance 0)
@@ -541,7 +466,7 @@
 			(tracks allowed)
 			(vias not_allowed)
 			(pads allowed)
-			(copperpour allowed)
+			(copperpour not_allowed)
 			(footprints allowed)
 		)
 		(placement
@@ -560,7 +485,7 @@
 	)
 	(zone
 		(layer "F.Cu")
-		(name "U1 underside pad 29 GPIO6_MTCK - no vias")
+		(name "U1 underside pad 29 GPIO6_MTCK - no vias or fill")
 		(hatch full 0.3)
 		(connect_pads
 			(clearance 0)
@@ -570,7 +495,7 @@
 			(tracks allowed)
 			(vias not_allowed)
 			(pads allowed)
-			(copperpour allowed)
+			(copperpour not_allowed)
 			(footprints allowed)
 		)
 		(placement
@@ -589,7 +514,7 @@
 	)
 	(zone
 		(layer "F.Cu")
-		(name "U1 underside pad 30 GPIO9_BOOT - no vias")
+		(name "U1 underside pad 30 GPIO9_BOOT - no vias or fill")
 		(hatch full 0.3)
 		(connect_pads
 			(clearance 0)
@@ -599,7 +524,7 @@
 			(tracks allowed)
 			(vias not_allowed)
 			(pads allowed)
-			(copperpour allowed)
+			(copperpour not_allowed)
 			(footprints allowed)
 		)
 		(placement
@@ -618,7 +543,7 @@
 	)
 	(zone
 		(layer "F.Cu")
-		(name "U1 underside pad 31 3V3 - no vias")
+		(name "U1 underside pad 31 3V3 - no vias or fill")
 		(hatch full 0.3)
 		(connect_pads
 			(clearance 0)
@@ -628,7 +553,7 @@
 			(tracks allowed)
 			(vias not_allowed)
 			(pads allowed)
-			(copperpour allowed)
+			(copperpour not_allowed)
 			(footprints allowed)
 		)
 		(placement
@@ -647,7 +572,7 @@
 	)
 	(zone
 		(layer "F.Cu")
-		(name "U1 underside pad 32 BAT - no vias")
+		(name "U1 underside pad 32 BAT - no vias or fill")
 		(hatch full 0.3)
 		(connect_pads
 			(clearance 0)
@@ -657,7 +582,7 @@
 			(tracks allowed)
 			(vias not_allowed)
 			(pads allowed)
-			(copperpour allowed)
+			(copperpour not_allowed)
 			(footprints allowed)
 		)
 		(placement
@@ -686,7 +611,7 @@
 			(tracks allowed)
 			(vias not_allowed)
 			(pads allowed)
-			(copperpour allowed)
+			(copperpour not_allowed)
 			(footprints allowed)
 		)
 		(placement

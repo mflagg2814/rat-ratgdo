@@ -21,7 +21,19 @@ The folder includes a [BOM](kicad_files/XIAO%20ESP32C6/BOM.md) with Digi-Key par
 ## Firmware
 Intended for use with SecPlus GDO firmware using the ESP-IDF framework.
 
-An example ESPHome YAML would be an adaptation of `grgdov3-board-secplus-gdo-thread.yaml`, found [here](https://github.com/GelidusResearch/grgdo). Note that you will at a minimum need to remap the UART pins to match this board.
+An example ESPHome YAML would be an adaptation of `grgdov3-board-secplus-gdo-thread.yaml`, found [here](https://github.com/GelidusResearch/grgdo). Note that you will at a minimum need to remap the UART pins and change the board/variant to match.
+```yaml
+substitutions:
+  uart_tx_pin: GPIO21 # D3
+  uart_rx_pin: GPIO18 # D10
+
+esp32:
+  board: seeed_xiao_esp32c6
+  flash_size: 4MB
+  variant: esp32c6
+  framework:
+    type: esp-idf
+```
 
 ---
 
