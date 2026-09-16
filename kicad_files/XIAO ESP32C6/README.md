@@ -14,7 +14,7 @@ A small (28.4 × 21.05 mm, 2-layer) Security+ 2.0 interface based on this reposi
 
 ## Firmware
 
-The board was designed for the ESPHome [`secplus_gdo`](https://github.com/gelidusresearch/esphome-secplus-gdo) component (Konnected gdolib). That component inverts the UART, which matches the two inverting MOSFET stages on this board:
+The board was designed for the ESPHome [`secplus_gdo`](https://github.com/gelidusresearch/esphome-secplus-gdo) component. That component inverts the UART, which matches the two inverting MOSFET stages on this board:
 
 ```yaml
 secplus_gdo:
@@ -23,6 +23,8 @@ secplus_gdo:
 ```
 
 Obstruction status comes from the Security+ 2.0 serial protocol, so no obstruction pin is configured.
+
+An example ESPHome YAML would be an adaptation of `grgdov3-board-secplus-gdo-thread.yaml`, found [here](https://github.com/GelidusResearch/grgdo). Note that you will at a minimum need to remap the UART pins to match this board.
 
 ## Changes from the D1 Mini - ESP32 board
 
@@ -43,13 +45,15 @@ The changes are:
 | RED bias to ground | 10k | **R4** 100k | Lighter load on the opener's line: about 0.13 mA instead of 1.3 mA at 12.7 V. |
 | Transient protection | None | **D1** 15 V unidirectional TVS (new) | Clamps transients on the wire run to the opener. |
 | Obstruction | IO23 through a 10k series resistor and 10k pulldown | Removed | Obstruction status is read from the Security+ 2.0 serial protocol. |
-| Connector | Three 3-pole footprint options (5.00 mm screw terminal, 3.5 mm Phoenix MCV, 2.54 mm header) | One 2-pole WAGO 250-1402 push-button terminal | Only RED and WHITE are needed. |
+| Connector | Three 3-pole footprint options (5.00 mm screw terminal, 3.5 mm Phoenix MCV, 2.54 mm header) | One 2-pole WAGO 250-1402 push-button terminal | Only RED and WHITE are needed. Accepts 20-24 AWG. |
 
 ## Wiring and mounting
 
 - **J1 RED** → opener's red wall-control terminal. **J1 WHITE** → opener's white terminal (ground). The labels are on the back silkscreen.
 - Power the XIAO from any USB-C supply.
-- Mount it with a #6-32 × 1" nylon screw through the 4.0 mm hole into a SnapSkru SPM Mini drywall anchor (see the BOM). I strongly recommend against a metallic screw in this position, it may interfere with the antenna.
+- Mount it with a #6-32 × 1" nylon screw through the 4.0 mm hole into a SnapSkru SPM Mini drywall anchor (see the BOM).
+  - M3.5 should also work for the mounting screw.
+  - I strongly recommend against a metallic screw in this position. It may interfere with the antenna.
 
 ## PCB notes
 

@@ -3,7 +3,7 @@
 > [!WARNING]
 > **The XIAO ESP32-C6 board added in this fork has not been built or tested yet, and it is provided without support.** Use it at your own risk.
 
-AI disclosure: Board layout is my own. AI was used for verification, documentation, schematic cleanup, minor board cleanup.
+AI disclosure: Board layout is my own. AI was used for verification, documentation, schematic cleanup, and minor board cleanup.
 
 <img src="kicad_files/XIAO%20ESP32C6/images/render-top.png" width="60%" alt="3D render of the XIAO ESP32-C6 board" />
 
@@ -13,9 +13,15 @@ AI disclosure: Board layout is my own. AI was used for verification, documentati
 - **RX:** a 10k pull-up to 3V3 is added, because the firmware does not enable an internal one.
 - **Values:** the TX GPIO pulldown is 4.7k (was 10k), and the RED-to-ground bias is 100k (was 10k).
 - **Protection:** a 15 V unidirectional TVS is added on the RED line.
-- **Obstruction:** the black-wire sensing circuit is removed, since obstruction status is read from the serial protocol. A single 2-pole WAGO push-button terminal (RED, WHITE) replaces the 3-pole connector options.
+- **Obstruction:** the black-wire sensing circuit is removed, since obstruction status is read from the serial protocol.
+- **Terminal:** A single 2-pole WAGO push-button terminal replaces the 3-pole connector options. Accepts 20-24 AWG.
 
-The folder includes a [BOM](kicad_files/XIAO%20ESP32C6/BOM.md) with Digi-Key part numbers, a [schematic PDF](kicad_files/XIAO%20ESP32C6/c6gdo-schematic.pdf), and a [README](kicad_files/XIAO%20ESP32C6/README.md) with the full list of changes and the reasoning behind them. The project needs KiCad 10 and carries its own symbol, footprint and 3D-model libraries.
+The folder includes a [BOM](kicad_files/XIAO%20ESP32C6/BOM.md) with Digi-Key part numbers, a [schematic PDF](kicad_files/XIAO%20ESP32C6/c6gdo-schematic.pdf), and a [README](kicad_files/XIAO%20ESP32C6/README.md) with the full list of changes and the reasoning behind them. The project needs KiCad 10 and contains its own symbol, footprint and 3D-model libraries.
+
+## Firmware
+Intended for use with SecPlus GDO firmware using the ESP-IDF framework.
+
+An example ESPHome YAML would be an adaptation of `grgdov3-board-secplus-gdo-thread.yaml`, found [here](https://github.com/GelidusResearch/grgdo). Note that you will at a minimum need to remap the UART pins to match this board.
 
 ---
 
