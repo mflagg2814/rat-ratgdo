@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "c6gdo")(type "KiCad")(uri "${KIPRJMOD}/lib/c6gdo.pretty")(options "")(descr "c6gdo project footprints"))
+)

@@ -1,0 +1,12 @@
+# KiCad local state, locks, caches and backups
+*.kicad_prl
+*.lck
+fp-info-cache
+/*-backups
+/.history
+_autosave-*
+~*
+
+# Scratch fabrication output (the committed Gerbers live in gerbers/)
+/production
+/Gerber Files
