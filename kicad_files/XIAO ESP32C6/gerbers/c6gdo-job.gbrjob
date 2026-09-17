@@ -5,13 +5,13 @@
       "Application": "Pcbnew",
       "Version": "10.0.6"
     },
-    "CreationDate": "2026-09-16T20:20:41-05:00"
+    "CreationDate": "2026-09-17T10:22:28-05:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
       "Name": "c6gdo",
       "GUID": "63366764-6f2e-46b6-9963-61645f706362",
-      "Revision": "1.0"
+      "Revision": "1.1"
     },
     "Size": {
       "X": 28.45,

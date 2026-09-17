@@ -16,7 +16,7 @@ AI disclosure: Board layout is my own. AI was used for verification, documentati
 - **Obstruction:** the black-wire sensing circuit is removed, since obstruction status is read from the serial protocol.
 - **Terminal:** A single 2-pole WAGO push-button terminal replaces the 3-pole connector options. Accepts 20-24 AWG.
 
-The folder includes a [BOM](kicad_files/XIAO%20ESP32C6/BOM.md) with Digi-Key part numbers, a [schematic PDF](kicad_files/XIAO%20ESP32C6/c6gdo-schematic.pdf), and a [README](kicad_files/XIAO%20ESP32C6/README.md) with the full list of changes and the reasoning behind them. The project needs KiCad 10 and contains its own symbol, footprint and 3D-model libraries.
+The folder includes a [BOM](kicad_files/XIAO%20ESP32C6/BOM.md) with DigiKey part numbers, a [schematic PDF](kicad_files/XIAO%20ESP32C6/c6gdo-schematic.pdf), and a [README](kicad_files/XIAO%20ESP32C6/README.md) with the full list of changes and the reasoning behind them. The project needs KiCad 10 and contains its own symbol, footprint and 3D-model libraries.
 
 ## XIAO ESP32-C5 compatibility
 This board was designed for the XIAO ESP32-C6. The pinouts are also chosen for XIAO ESP32-C5 compatibility. I'm unsure of precedent for the GDO firmware- it may or may not function on C5.

@@ -68,7 +68,7 @@ The changes are:
 | RX pull-up | None | **R5** 10k to 3V3 (new) | gdolib never enables an internal pull-up on the RX pin, so without R5 the pin floats when Q1 is off. |
 | TX GPIO pulldown | 10k | **R1** 4.7k | Keeps Q2 off while the ESP32 is in reset. In reset the pin's ~45 kΩ internal pull-up is enabled, which with the old 10k pulldown would set Q2's gate to about 3.3 V × 10k / 55k ≈ 0.60 V. That is just under the AO3400A's minimum turn-on threshold of 0.65 V (0.65–1.45 V). With 4.7k the gate sits at about 0.31 V. |
 | RED bias to ground | 10k | **R4** 100k | Lighter load on the opener's line: about 0.13 mA instead of 1.3 mA at 12.7 V. |
-| Transient protection | None | **D1** 15 V unidirectional TVS (new) | Clamps transients on the wire run to the opener. |
+| Transient protection | None | **D1** PTVS15VS1UR 15 V, 400 W unidirectional TVS (new) | Clamps transients on the wire run to the opener. |
 | Obstruction | IO23 through a 10k series resistor and 10k pulldown | Removed | Obstruction status is read from the Security+ 2.0 serial protocol. |
 | Connector | Three 3-pole footprint options (5.00 mm screw terminal, 3.5 mm Phoenix MCV, 2.54 mm header) | One 2-pole WAGO 250-1402 push-button terminal | Only RED and WHITE are needed. Accepts 20-24 AWG. |
 
@@ -112,5 +112,5 @@ The files require **KiCad 10**. The Gerbers match the current board. After any b
 Sources:
 - **XIAO symbol and footprint:** derived from Seeed Studio's official XIAO KiCad library.
 - **XIAO 3D model** (`lib/c6gdo.3dshapes/seeed-studio-xiao-esp32c6-v2.step`): "[3D model for Seeed Studio XIAO ESP32C6](https://www.printables.com/model/1338408-3d-model-for-seeed-studio-xiao-esp32c6)" from Printables. It is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) and included unmodified.
-- **WAGO footprint and 3D model:** from the [250-1402 Ultra Librarian CAD download on Digi-Key](https://www.digikey.com/en/models/15551338?tab=ultralibrarian).
+- **WAGO footprint and 3D model:** from the [250-1402 Ultra Librarian CAD download on DigiKey](https://www.digikey.com/en/models/15551338?tab=ultralibrarian).
 - **Everything else:** the remaining footprints and 3D models come from the standard KiCad libraries.

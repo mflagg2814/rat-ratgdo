@@ -1,7 +1,7 @@
-Item,Reference,Qty,Value,Description,Package,Manufacturer,MPN,Digi-Key PN,Notes
+Item,Reference,Qty,Value,Description,Package,Manufacturer,MPN,DigiKey PN,Notes
 1,U1,1,XIAO ESP32C6,ESP32-C6 WiFi6/BLE5/802.15.4 module,XIAO 14-pad castellated,"Seeed Technology Co., Ltd",113991254,1597-113991254-ND,Standard (non-pre-soldered) version; solder by castellated edges
 2,J1,1,250-1402,"PCB terminal block, push-button, 2-pole (RED + WHITE from GDO)",THT 2.54 mm pitch,WAGO Corporation,250-1402,2946-250-1402-ND,
-3,D1,1,CDSOD323-T15S,"TVS diode, unidirectional, 15 V standoff",SOD-323,Bourns Inc.,CDSOD323-T15S,CDSOD323-T15SCT-ND,Cathode to RED/CTRL
+3,D1,1,PTVS15VS1UR,"TVS diode, unidirectional, 15 V standoff, 400 W",SOD-123W,Nexperia,"PTVS15VS1UR,115",1727-5315-1-ND,Cathode to RED/CTRL
 4,Q1,1,2N7002,"N-ch MOSFET 60 V, RX level shifter",SOT-23,onsemi,2N7002,2N7002NCT-ND,Needs +/-20 V gate rating - do not substitute AO3400A
 5,Q2,1,AO3400A,"N-ch MOSFET 30 V, open-drain TX driver",SOT-23,Alpha & Omega Semiconductor Inc.,AO3400A,785-1000-1-ND,
 6,R1,1,4.7k,"Resistor 4.7 kOhm 0.1% 1/8 W, TX gate pulldown",0805,Panasonic Industry,ERA-6AEB472V,P4.7KDACT-ND,
@@ -9,5 +9,5 @@ Item,Reference,Qty,Value,Description,Package,Manufacturer,MPN,Digi-Key PN,Notes
 8,"R3, R5",2,10k,"Resistor 10 kOhm 0.5% 1/8 W, Q1 gate series / RX pull-up",0805,Panasonic Industry,ERA-6AED103V,P123794CT-ND,
 9,R4,1,100k,"Resistor 100 kOhm 0.1% 1/8 W, RED/CTRL bias",0805,Panasonic Industry,ERA-6AEB104V,P100KDACT-ND,
 10,H1,1,#6-32 x 1 in,"Machine screw, pan head Phillips, nylon",Head 6.68 mm dia,Essentra Components,010632PW100,RPC7858-ND,Mechanical - not in schematic
-11,-,1,SnapSkru SPM Mini,"Self-drilling drywall anchor, 3/8-5/8 in drywall, #6-#8 screws",Glass-filled nylon,TOGGLER (Mechanical Plastics),SnapSkru SPM Mini,,Not stocked by Digi-Key
+11,-,1,SnapSkru SPM Mini,"Self-drilling drywall anchor, 3/8-5/8 in drywall, #6-#8 screws",Glass-filled nylon,TOGGLER (Mechanical Plastics),SnapSkru SPM Mini,,Not stocked by DigiKey
 12,PCB,1,c6gdo,"Bare PCB, 28.4 x 21.05 mm",2-layer 1.6 mm FR4,,,,

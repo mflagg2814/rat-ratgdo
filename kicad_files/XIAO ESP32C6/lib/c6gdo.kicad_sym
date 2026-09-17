@@ -504,7 +504,7 @@
 		)
 		(embedded_fonts no)
 	)
-	(symbol "CDSOD323-T15S"
+	(symbol "PTVS15VS1UR"
 		(pin_numbers
 			(hide yes)
 		)
@@ -527,7 +527,7 @@
 				)
 			)
 		)
-		(property "Value" "CDSOD323-T15S"
+		(property "Value" "PTVS15VS1UR"
 			(at 0 -2.54 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -537,7 +537,7 @@
 				)
 			)
 		)
-		(property "Footprint" "c6gdo:D_SOD-323"
+		(property "Footprint" "c6gdo:Nexperia_CFP3_SOD-123W"
 			(at 0 -5.08 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -548,7 +548,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.bourns.com/docs/product-datasheets/cdsod323-txxsc.pdf"
+		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/PTVSXS1UR_SER.pdf"
 			(at -1.27 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -559,7 +559,7 @@
 				)
 			)
 		)
-		(property "Description" "15V unidirectional TVS, SOD-323"
+		(property "Description" "15V 400W unidirectional TVS, SOD-123W"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -581,7 +581,7 @@
 				)
 			)
 		)
-		(property "ki_fp_filters" "D*SOD?323*"
+		(property "ki_fp_filters" "*SOD?123W*"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -592,7 +592,7 @@
 				)
 			)
 		)
-		(symbol "CDSOD323-T15S_0_1"
+		(symbol "PTVS15VS1UR_0_1"
 			(polyline
 				(pts
 					(xy -0.762 1.27) (xy -1.27 1.27) (xy -1.27 -1.27)
@@ -618,7 +618,7 @@
 				)
 			)
 		)
-		(symbol "CDSOD323-T15S_1_1"
+		(symbol "PTVS15VS1UR_1_1"
 			(pin passive line
 				(at -3.81 0 0)
 				(length 2.54)

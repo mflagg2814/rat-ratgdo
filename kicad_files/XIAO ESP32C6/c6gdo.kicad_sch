@@ -6,8 +6,8 @@
 	(paper "A4")
 	(title_block
 		(title "XIAO ESP32-C6 Security+ 2.0 Garage Door Interface")
-		(date "2026-09-16")
-		(rev "1.0")
+		(date "2026-09-17")
+		(rev "1.1")
 		(company "MFLAGG")
 		(comment 1 "Derived from the rat-ratgdo D1 Mini - ESP32 board")
 		(comment 2 "ESPHome secplus_gdo: TX GPIO22 (D4), RX GPIO18 (D10), inverted UART")
@@ -938,7 +938,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "c6gdo:CDSOD323-T15S"
+		(symbol "c6gdo:PTVS15VS1UR"
 			(pin_numbers
 				(hide yes)
 			)
@@ -961,7 +961,7 @@
 					)
 				)
 			)
-			(property "Value" "CDSOD323-T15S"
+			(property "Value" "PTVS15VS1UR"
 				(at 0 -2.54 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -971,7 +971,7 @@
 					)
 				)
 			)
-			(property "Footprint" "c6gdo:D_SOD-323"
+			(property "Footprint" "c6gdo:Nexperia_CFP3_SOD-123W"
 				(at 0 -5.08 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -982,7 +982,7 @@
 					)
 				)
 			)
-			(property "Datasheet" "https://www.bourns.com/docs/product-datasheets/cdsod323-txxsc.pdf"
+			(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/PTVSXS1UR_SER.pdf"
 				(at -1.27 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -993,7 +993,7 @@
 					)
 				)
 			)
-			(property "Description" "15V unidirectional TVS, SOD-323"
+			(property "Description" "15V 400W unidirectional TVS, SOD-123W"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1015,7 +1015,7 @@
 					)
 				)
 			)
-			(property "ki_fp_filters" "D*SOD?323*"
+			(property "ki_fp_filters" "*SOD?123W*"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1026,7 +1026,7 @@
 					)
 				)
 			)
-			(symbol "CDSOD323-T15S_0_1"
+			(symbol "PTVS15VS1UR_0_1"
 				(polyline
 					(pts
 						(xy -0.762 1.27) (xy -1.27 1.27) (xy -1.27 -1.27)
@@ -1052,7 +1052,7 @@
 					)
 				)
 			)
-			(symbol "CDSOD323-T15S_1_1"
+			(symbol "PTVS15VS1UR_1_1"
 				(pin passive line
 					(at -3.81 0 0)
 					(length 2.54)
@@ -1877,7 +1877,7 @@
 		)
 		(uuid "332495af-2f1c-4e8e-a069-839ee6c84df8")
 	)
-	(text "NOTES\n1. Firmware: ESPHome secplus_gdo (gdolib) with invert_uart = true; uart_tx_pin = GPIO22, uart_rx_pin = GPIO18.\n2. Both FET stages invert the signal; the firmware's UART inversion restores the logic sense.\n3. Q1's gate sees the RED line directly: use a part rated +/-20 V Vgs (do not substitute AO3400A, +/-12 V).\n4. Ordering data: Manufacturer / MPN / Digi-Key PN symbol fields and c6gdo-bom.csv."
+	(text "NOTES\n1. Firmware: ESPHome secplus_gdo (gdolib) with invert_uart = true; uart_tx_pin = GPIO22, uart_rx_pin = GPIO18.\n2. Both FET stages invert the signal; the firmware's UART inversion restores the logic sense.\n3. Q1's gate sees the RED line directly: use a part rated +/-20 V Vgs (do not substitute AO3400A, +/-12 V).\n4. Ordering data: Manufacturer / MPN / DigiKey PN symbol fields and c6gdo-bom.csv."
 		(exclude_from_sim no)
 		(at 22.86 157.48 0)
 		(effects
@@ -2548,7 +2548,7 @@
 				)
 			)
 		)
-		(property "Digi-Key PN" "P123794CT-ND"
+		(property "DigiKey PN" "P123794CT-ND"
 			(at 138.43 127 0)
 			(hide yes)
 			(show_name no)
@@ -2893,7 +2893,7 @@
 				)
 			)
 		)
-		(property "Digi-Key PN" "P123794CT-ND"
+		(property "DigiKey PN" "P123794CT-ND"
 			(at 160.02 110.49 0)
 			(hide yes)
 			(show_name no)
@@ -2997,7 +2997,7 @@
 		)
 	)
 	(symbol
-		(lib_id "c6gdo:CDSOD323-T15S")
+		(lib_id "c6gdo:PTVS15VS1UR")
 		(at 220.98 62.23 270)
 		(unit 1)
 		(body_style 1)
@@ -3018,7 +3018,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "CDSOD323-T15S"
+		(property "Value" "PTVS15VS1UR"
 			(at 223.52 63.5 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3029,7 +3029,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "c6gdo:D_SOD-323"
+		(property "Footprint" "c6gdo:Nexperia_CFP3_SOD-123W"
 			(at 220.98 62.23 0)
 			(hide yes)
 			(show_name no)
@@ -3040,7 +3040,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.bourns.com/docs/product-datasheets/cdsod323-txxsc.pdf"
+		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/PTVSXS1UR_SER.pdf"
 			(at 220.98 62.23 0)
 			(hide yes)
 			(show_name no)
@@ -3051,7 +3051,7 @@
 				)
 			)
 		)
-		(property "Description" "15V unidirectional TVS, SOD-323"
+		(property "Description" "15V 400W unidirectional TVS, SOD-123W"
 			(at 220.98 62.23 0)
 			(hide yes)
 			(show_name no)
@@ -3062,7 +3062,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Bourns Inc."
+		(property "Manufacturer" "Nexperia"
 			(at 220.98 62.23 0)
 			(hide yes)
 			(show_name no)
@@ -3073,7 +3073,7 @@
 				)
 			)
 		)
-		(property "MPN" "CDSOD323-T15S"
+		(property "MPN" "PTVS15VS1UR,115"
 			(at 220.98 62.23 0)
 			(hide yes)
 			(show_name no)
@@ -3084,7 +3084,7 @@
 				)
 			)
 		)
-		(property "Digi-Key PN" "CDSOD323-T15SCT-ND"
+		(property "DigiKey PN" "1727-5315-1-ND"
 			(at 220.98 62.23 0)
 			(hide yes)
 			(show_name no)
@@ -3196,7 +3196,7 @@
 				)
 			)
 		)
-		(property "Digi-Key PN" "2946-250-1402-ND"
+		(property "DigiKey PN" "2946-250-1402-ND"
 			(at 261.62 58.42 0)
 			(hide yes)
 			(show_name no)
@@ -3310,7 +3310,7 @@
 				)
 			)
 		)
-		(property "Digi-Key PN" "1597-113991254-ND"
+		(property "DigiKey PN" "1597-113991254-ND"
 			(at 63.5 76.2 0)
 			(hide yes)
 			(show_name no)
@@ -3460,7 +3460,7 @@
 				)
 			)
 		)
-		(property "Digi-Key PN" "P4.7KDACT-ND"
+		(property "DigiKey PN" "P4.7KDACT-ND"
 			(at 129.54 64.77 0)
 			(hide yes)
 			(show_name no)
@@ -3649,7 +3649,7 @@
 				)
 			)
 		)
-		(property "Digi-Key PN" "P1.0KDACT-ND"
+		(property "DigiKey PN" "P1.0KDACT-ND"
 			(at 138.43 58.42 0)
 			(hide yes)
 			(show_name no)
@@ -4148,7 +4148,7 @@
 				)
 			)
 		)
-		(property "Digi-Key PN" "785-1000-1-ND"
+		(property "DigiKey PN" "785-1000-1-ND"
 			(at 152.4 58.42 0)
 			(hide yes)
 			(show_name no)
@@ -4265,7 +4265,7 @@
 				)
 			)
 		)
-		(property "Digi-Key PN" "2N7002NCT-ND"
+		(property "DigiKey PN" "2N7002NCT-ND"
 			(at 152.4 127 0)
 			(hide yes)
 			(show_name no)
@@ -4382,7 +4382,7 @@
 				)
 			)
 		)
-		(property "Digi-Key PN" "P100KDACT-ND"
+		(property "DigiKey PN" "P100KDACT-ND"
 			(at 243.84 62.23 0)
 			(hide yes)
 			(show_name no)
