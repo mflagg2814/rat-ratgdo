@@ -26,6 +26,8 @@ Intended for use with SecPlus GDO firmware using the ESP-IDF framework.
 
 An example ESPHome YAML would be an adaptation of `grgdov3-board-secplus-gdo-thread.yaml`, found [here](https://github.com/GelidusResearch/grgdo). Note that you will at a minimum need to remap the UART pins and change the board/variant to match.
 
+## Case
+STLs for a compact 3D printed case will be available upon validation against the final build. There will be an internal antenna variant plus C6 and C5 external antenna cutout variants.
 
 ---
 
