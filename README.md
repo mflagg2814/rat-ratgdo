@@ -1,10 +1,12 @@
 # XIAO ESP32-C6 / ESP32-C5 board
 
-> [!WARNING]
-> **The XIAO ESP32-C6 board added in this fork has not been built or tested yet, and it is provided without support.** Use it at your own risk.
+> [!IMPORTANT]
+> This board has been built and tested to work with ESP32-C6.\
+> Use it at your own risk and without expectation of support.\
 
 AI disclosure: Board layout is my own. AI was used for verification, documentation, schematic cleanup, and minor board cleanup.
 
+<img src="kicad_files/XIAO%20ESP32C6/images/completed-open.jpg" width="60%" alt="Completed project" />
 <img src="kicad_files/XIAO%20ESP32C6/images/render-top.png" width="60%" alt="3D render of the XIAO ESP32-C6 board" />
 
 [`kicad_files/XIAO ESP32C6`](kicad_files/XIAO%20ESP32C6) is a small Security+ 2.0 interface for the ESPHome `secplus_gdo` component, built around a surface-mounted Seeed XIAO ESP32-C6. Compared with the [D1 Mini - ESP32](kicad_files/D1%20Mini%20-%20ESP32) board it is based on:

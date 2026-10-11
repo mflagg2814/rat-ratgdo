@@ -526,7 +526,7 @@
       "netlist": "",
       "plot": "Gerbers",
       "specctra_dsn": "",
-      "step": "",
+      "step": "../../../c6gdo-case/c6gdo.glb",
       "vrml": ""
     },
     "page_layout_descr_file": ""

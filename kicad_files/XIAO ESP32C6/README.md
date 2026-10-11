@@ -1,7 +1,11 @@
 # Seeed XIAO ESP32-C6 / ESP32-C5 KiCad files
 
-> [!WARNING]
-> **This board has not been built or tested yet, and it is provided without support.** It passes KiCad's electrical rules check and design rules check, but it has never controlled a garage door. Use it at your own risk.
+> [!IMPORTANT]
+> This board has been built and tested to work with ESP32-C6.\
+> Use it at your own risk and without expectation of support.\
+> My opener also required a patched gdolib to address a buffer overrun while opening/closing. See Firmware below.
+
+<img src="images/completed-open.jpg" width="50%" alt="Completed project" /><img src="images/completed-closed.jpg" width="50%" alt="Completed project" />
 
 <img src="images/render-top.png" width="50%" alt="3D render, top" /><img src="images/render-top-bare.png" width="50%" alt="Top view without the XIAO and terminal block" />
 <img src="images/render-bottom.png" width="50%" alt="3D render, bottom" />
@@ -10,6 +14,10 @@ A small (28.4 × 21.05 mm, 2-layer) Security+ 2.0 interface based on this reposi
 
 - Schematic: [c6gdo-schematic.pdf](c6gdo-schematic.pdf) (source: `c6gdo.kicad_sch`)
 - Bill of materials: [BOM.md](BOM.md) / [BOM.csv](BOM.csv)
+
+## Case
+
+Case STLs are in the `case` dir. Print one `bottom.stl` and one `top` per your external antenna cutout requirements. Designed for 0.2mm layer height and successfully printed in Prusament Galaxy Purple PLA.
 
 ## Firmware
 
@@ -31,6 +39,10 @@ esp32:
   framework:
     type: esp-idf
 ```
+
+### gdolib patch
+
+My opener also required the patch in `gdolib-patch` against `GelidusResearch/gdolib` v1.2.9 (5936cab). It's provided in the event your opener behaves like mine and spams messages before gdolib can service them. I don't recommend bothering with it unless you have issues stopping your opener mid-travel or issues with opening/closing state reports. Open/close, light status, etc worked fine without the patch.
 
 ## XIAO ESP32-C5 compatibility
 
@@ -70,13 +82,14 @@ The changes are:
 | RED bias to ground | 10k | **R4** 100k | Lighter load on the opener's line: about 0.13 mA instead of 1.3 mA at 12.7 V. |
 | Transient protection | None | **D1** PTVS15VS1UR 15 V, 400 W unidirectional TVS (new) | Clamps transients on the wire run to the opener. |
 | Obstruction | IO23 through a 10k series resistor and 10k pulldown | Removed | Obstruction status is read from the Security+ 2.0 serial protocol. |
-| Connector | Three 3-pole footprint options (5.00 mm screw terminal, 3.5 mm Phoenix MCV, 2.54 mm header) | One 2-pole WAGO 250-1402 push-button terminal | Only RED and WHITE are needed. Accepts 20-24 AWG. |
+| Connector | Three 3-pole footprint options (5.00 mm screw terminal, 3.5 mm Phoenix MCV, 2.54 mm header) | One 2-pole WAGO 250-1402 push-button terminal | Only RED and WHITE are needed. Accepts 20-24 AWG *solid* wire. |
 
 ## Wiring and mounting
 
 - **J1 RED** → opener's red wall-control terminal. **J1 WHITE** → opener's white terminal (ground). The labels are on the back silkscreen.
 - Power the XIAO from any USB-C supply.
-- Mount it with a #6-32 × 1" nylon screw through the 4.0 mm hole into a SnapSkru SPM Mini drywall anchor (see the BOM).
+- Mount it with a #6-32 nylon screw through the 4.0 mm hole into a SnapSkru SPM Mini drywall anchor (see the BOM).
+  - A smaller diameter screw might work better. I installed the SnapScrew, ran an included metal screw through it, then installed with the nylon screw snipped to ~1-1.5cm length. Any longer and it would bind.
   - M3.5 should also work for the mounting screw.
   - I strongly recommend against a metallic screw in this position. It may interfere with the antenna.
 

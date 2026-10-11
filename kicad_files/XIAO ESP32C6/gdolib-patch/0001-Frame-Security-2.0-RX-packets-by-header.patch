@@ -1,0 +1,248 @@
+From 58f91b8dd79830614418cb58987a1e2bd2de10ef
+From: mflagg2814
+Date: Sun, 11 Oct 2026 13:28:55 -0500
+Subject: [PATCH] Frame Security+ 2.0 RX packets by header
+
+Each UART data event was treated as one packet. When an event held more
+than 19 bytes, bytes were dropped from the front until 19 remained. While
+the door moves the opener sends packets back to back, so the extra byte
+is often the start of the next packet, and the real 0x55 header byte was
+dropped instead. The packet then failed with "RX data signature error"
+(e.g. 0x01001a). Losing the opening/closing status made stop a no-op,
+since stop is ignored unless the door is known to be moving.
+
+Received bytes now go into a buffer and packets are located by their
+55 01 00 header, however UART events split them. A partial packet waits
+up to 100 ms for the rest. Bytes that can't belong to a packet are
+logged as "Discarded N RX bytes", except 0x00 break artifacts.
+
+Tested on a Security+ 2.0 opener: four of four mid-travel stops worked,
+opening and closing.
+---
+ gdo.c      | 172 +++++++++++++++++++++++++++++++++--------------------
+ gdo_priv.h |   5 ++
+ 2 files changed, 114 insertions(+), 63 deletions(-)
+
+diff --git a/gdo.c b/gdo.c
+index 2f75a24..56d8d76 100755
+--- a/gdo.c
++++ b/gdo.c
+@@ -19,6 +19,7 @@
+ 
+ #include "gdo_priv.h"
+ #include "secplus.h"
++#include <stdio.h>
+ #include <string.h>
+ 
+ #define __STDC_FORMAT_MACROS 1
+@@ -54,6 +55,7 @@ static void update_paired_devices(gdo_paired_device_type_t type, uint8_t count);
+ static void update_battery_state(gdo_battery_state_t battery_state);
+ static void update_door_state(const gdo_door_state_t door_state);
+ static void decode_packet(uint8_t *packet);
++static void receive_v2_bytes(size_t available);
+ static void decode_dry_contact(gdo_contact_type_t contact, uint32_t level);
+ static esp_err_t get_status();
+ static esp_err_t get_openings();
+@@ -2034,6 +2036,111 @@ static void decode_packet(uint8_t *packet)
+ /**
+  * @brief Main task that handles all the events from the UART and other tasks.
+  */
++static const uint8_t V2_HEADER[] = {0x55, 0x01, 0x00};
++
++/**
++ * @brief Logs bytes that could not be part of any Security+ 2.0 packet.
++ * Break artifacts (0x00) are expected and not logged.
++ */
++static void log_discarded_v2_bytes(const uint8_t *bytes, size_t len)
++{
++  bool all_zero = true;
++  for (size_t i = 0; i < len; ++i)
++  {
++    all_zero = all_zero && bytes[i] == 0;
++  }
++  if (len == 0 || all_zero)
++  {
++    return;
++  }
++
++  char hex[3 * V2_DISCARD_LOG_MAX + 1] = "";
++  size_t shown = len < V2_DISCARD_LOG_MAX ? len : V2_DISCARD_LOG_MAX;
++  for (size_t i = 0; i < shown; ++i)
++  {
++    snprintf(hex + 3 * i, 4, "%02X ", bytes[i]);
++  }
++  ESP_LOGE(TAG, "Discarded %u RX bytes: %s%s", (unsigned)len, hex, shown < len ? "..." : "");
++}
++
++/** @brief True when the bytes are the start of a packet header, possibly truncated. */
++static bool is_v2_header_prefix(const uint8_t *bytes, size_t len)
++{
++  return memcmp(bytes, V2_HEADER, len < sizeof(V2_HEADER) ? len : sizeof(V2_HEADER)) == 0;
++}
++
++/**
++ * @brief Decodes every complete packet in the buffer, located by header.
++ * @return The length of the unconsumed tail, moved to the front of the buffer.
++ */
++static size_t extract_v2_packets(uint8_t *buf, size_t len)
++{
++  size_t i = 0;
++  size_t discard_start = 0;
++  while (i + V2_PACKET_SIZE <= len)
++  {
++    if (memcmp(buf + i, V2_HEADER, sizeof(V2_HEADER)) != 0)
++    {
++      ++i;
++      continue;
++    }
++    log_discarded_v2_bytes(buf + discard_start, i - discard_start);
++    print_buffer(g_status.protocol, buf + i, false);
++    decode_packet(buf + i);
++    i += V2_PACKET_SIZE;
++    discard_start = i;
++  }
++
++  while (i < len && !is_v2_header_prefix(buf + i, len - i))
++  {
++    ++i;
++  }
++  log_discarded_v2_bytes(buf + discard_start, i - discard_start);
++
++  memmove(buf, buf + i, len - i);
++  return len - i;
++}
++
++/**
++ * @brief Reads Security+ 2.0 bytes and decodes the packets they complete.
++ * UART events don't align with packets, so a packet's start may arrive at the
++ * end of the previous event; a partial packet waits briefly for the rest.
++ */
++static void receive_v2_bytes(size_t available)
++{
++  static uint8_t buf[V2_RX_BUFFER_SIZE];
++  static size_t len = 0;
++  static int64_t last_rx_us = 0;
++
++  int64_t now_us = esp_timer_get_time();
++  if (len > 0 && now_us - last_rx_us > V2_PARTIAL_PACKET_TIMEOUT_US)
++  {
++    log_discarded_v2_bytes(buf, len);
++    len = 0;
++  }
++  last_rx_us = now_us;
++
++  while (available > 0)
++  {
++    size_t room = sizeof(buf) - len;
++    size_t want = available < room ? available : room;
++    int bytes_read = uart_read_bytes(g_config.uart_num, buf + len, want, 0);
++    if (bytes_read < 0)
++    {
++      ESP_LOGE(TAG, "RX buffer read error, flushing");
++      uart_flush(g_config.uart_num);
++      len = 0;
++      return;
++    }
++    if (bytes_read == 0)
++    {
++      return;
++    }
++    available -= (size_t)bytes_read;
++    len = extract_v2_packets(buf, len + (size_t)bytes_read);
++  }
++}
++
+ static void gdo_main_task(void *arg)
+ {
+   uint8_t rx_buffer[RX_BUFFER_SIZE * 2]; // double the size to prevent overflow
+@@ -2086,69 +2193,8 @@ static void gdo_main_task(void *arg)
+ 
+         if (g_status.protocol == GDO_PROTOCOL_SEC_PLUS_V2)
+         {
+-          if (!rx_pending)
+-          {
+-            // got a packet without a break first?
+-            ESP_LOGI(TAG, "Unexpected data; received %u bytes, %s", rx_packet_size,
+-                     rx_packet_size >= GDO_PACKET_SIZE ? "processing" : "ignoring");
+-            if (rx_packet_size >= GDO_PACKET_SIZE)
+-            {
+-              // If we have a usable packet then we should process it incase we just missed the break.
+-              rx_pending++;
+-            }
+-          }
+-
+-          if (rx_packet_size < GDO_PACKET_SIZE)
+-          {
+-            ESP_LOGW(TAG, "Ignoring RX packet size %u, pending: %u", rx_packet_size, rx_pending);
+-            uart_read_bytes(g_config.uart_num, rx_buffer, rx_packet_size, 0);
+-            if (rx_pending)
+-            {
+-              --rx_pending;
+-            }
+-            break;
+-          }
+-
+-          if (rx_packet_size > GDO_PACKET_SIZE)
+-          {
+-            ESP_LOGW(TAG, "Oversized packet received: %u bytes, messages pending: %u", rx_packet_size, rx_pending);
+-            // Sometimes the break is interperated as a 0 byte and added to the packet
+-            // So lets just dump the first byte(s) until we have our packet size.
+-            while (rx_packet_size > GDO_PACKET_SIZE)
+-            {
+-              if (uart_read_bytes(g_config.uart_num, rx_buffer, 1, 0) < 0)
+-              {
+-                ESP_LOGI(TAG, "RX buffer read error, flushing");
+-                uart_flush(g_config.uart_num);
+-                rx_pending = 0;
+-                break;
+-              }
+-
+-              --rx_packet_size;
+-            }
+-          }
+-
+-          while (rx_pending)
+-          {
+-            if (uart_read_bytes(g_config.uart_num, rx_buffer, GDO_PACKET_SIZE, 0) == GDO_PACKET_SIZE)
+-            {
+-              // check for the GDO packet start (0x55 0x01 0x00)
+-              if (memcmp(rx_buffer, "\x55\x01\x00", 3) != 0)
+-              {
+-                ESP_LOGE(TAG, "RX data signature error: 0x%02x%02x%02x", rx_buffer[0], rx_buffer[1], rx_buffer[2]);
+-                rx_pending--;
+-                continue;
+-              }
+-
+-              print_buffer(g_status.protocol, rx_buffer, false);
+-              decode_packet(rx_buffer);
+-            }
+-            else
+-            {
+-              ESP_LOGE(TAG, "RX buffer read error, %u pending messages.", rx_pending);
+-            }
+-            --rx_pending;
+-          }
++          rx_pending = 0;
++          receive_v2_bytes(rx_packet_size);
+         }
+         else if (g_status.protocol & GDO_PROTOCOL_SEC_PLUS_V1)
+         {
+diff --git a/gdo_priv.h b/gdo_priv.h
+index 51fe335..26bf92e 100644
+--- a/gdo_priv.h
++++ b/gdo_priv.h
+@@ -30,6 +30,11 @@ extern "C"
+ 
+ #define RX_BUFFER_SIZE 160
+ #define GDO_PACKET_SIZE ((g_status.protocol == GDO_PROTOCOL_SEC_PLUS_V2) ? 19UL : 2UL)
++#define V2_PACKET_SIZE 19U
++#define V2_RX_BUFFER_SIZE (RX_BUFFER_SIZE + V2_PACKET_SIZE)
++#define V2_DISCARD_LOG_MAX 24U
++// A packet takes ~20 ms at 9600 baud
++#define V2_PARTIAL_PACKET_TIMEOUT_US 100000
+ #define GDO_DRY_CONTACT_DEBOUNCE_MS 50
+ #define GDO_DRY_CONTACT_PULSE_WIDTH_MS 250
+ 
+-- 
+2.47.3
+

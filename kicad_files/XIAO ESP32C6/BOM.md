@@ -22,7 +22,7 @@ The resistors are thin-film 0.1% / 0.5% parts. That is more precision than the c
 
 |Ref|Qty|Part|Manufacturer|MPN|Source|
 |-|-|-|-|-|-|
-|H1|1|#6-32 × 1" nylon pan head Phillips machine screw (6.68 mm head), through the 4.0 mm hole|Essentra Components|010632PW100|DigiKey [RPC7858-ND](https://www.digikey.com/en/products/result?keywords=RPC7858-ND)|
+|H1|1|#6-32 × 1" nylon pan head Phillips machine screw (6.68 mm head), through the 4.0 mm hole. A smaller screw diameter might work better.|Essentra Components|010632PW100|DigiKey [RPC7858-ND](https://www.digikey.com/en/products/result?keywords=RPC7858-ND)|
 |-|1|SnapSkru SPM Mini self-drilling drywall anchor (3/8"–5/8" drywall, #6–#8 screws)|TOGGLER|SnapSkru SPM Mini|Hardware stores; not stocked by DigiKey|
 
 The anchor is designed for coarse #6–#8 screws. A fine-thread #6-32 screw still bites into it, but it will hold less than the anchor's rated load. That is plenty for a board this light.
